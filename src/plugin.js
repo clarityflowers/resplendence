@@ -4,14 +4,21 @@ import makeClassName from './make-classname';
 import makeFileName from './make-filename';
 import getImportName from './get-import-name';
 import regex from './regex';
+import watcher from './watcher';
 
-function ResplendencePlugin(options) {
-  this.files = [];
-  this.first = true;
-  this.src = options.src;
-  this.ext = options.ext;
+class ResplendencePlugin {
+  constructor(options) {
+    this.files = [];
+    this.first = true;
+    this.src = options.src;
+    this.ext = options.ext;
+    this.processFile = this.processFile.bind(this);
+    this.walkSync = this.walkSync.bind(this);
+    this.processAll = this.processAll.bind(this);
+    this.apply = this.apply.bind(this);
+  }
 
-  this.processFile = (pathName, files) => {
+  processFile(pathName, files) {
     if (/\.js$/.test(pathName)) {
       const file = fs.readFileSync(pathName, "utf8");
       const importName = getImportName(file);
@@ -51,9 +58,7 @@ function ResplendencePlugin(options) {
     }
   }
 
-  const processFile = this.processFile;
-
-  this.walkSync = (dir, action) => {
+  walkSync(dir, action) {
       if (!fs.lstatSync(dir).isDirectory()) {
         action(dir);
       }  
@@ -62,58 +67,34 @@ function ResplendencePlugin(options) {
       }
   }
 
-  this.processAll = (files) => {
-    this.walkSync(path.join(this.src), file => this.processFile(file, files));
+  processAll(files) {
+    const generatedFolder = path.join(this.src, '.generated'); 
+    if (fs.existsSync(generatedFolder)) {
+      const fileList = [];
+      this.walkSync(generatedFolder, file => fileList.push(file));
+      fileList.forEach(file => fs.unlinkSync(file));
+    }
+    this.walkSync(this.src, file => this.processFile(file, files));
   }
 
-  this.watcher = class ResplendenceWatcher {
-    constructor(wfs, files, deletedFiles) {
-      this.wfs = wfs;
-      this.files = files;
-      this.deletedFiles = deletedFiles;
-    }
+  apply(compiler) {
+    compiler.plugin('after-environment', () => {
+      compiler.watchFileSystem = new watcher(compiler.watchFileSystem, this.files, this.processFile);
+    });
 
-    watch(files, dirs, missing, startTime, options, callback, callbackUndelayed) {
-      const ignored = file => this.files.includes(file);
-      const allowed = file => !ignored(file);
-      const ignoredFiles = files.filter(ignored);
-      const allowedFiles = files.filter(allowed);
-      while (this.files.length) {
-        this.files.pop();
-      }
-      this.wfs.watch(allowedFiles, dirs, missing, startTime, options, (err, filesModified, dirsModified, missingModified, fileTimestamps, dirTimestamps) => {
-        if(err) return callback(err);
-        if (filesModified) {
-          filesModified.forEach(processFile);
+    compiler.plugin('entry-option', () => {
+      this.processAll(this.files);
+    });
+
+    compiler.plugin('done', (stats) => {
+      if (this.once) {
+        while (this.files.length) {
+          const file = this.files.pop();
+          fs.unlinkSync(file);
         }
-        callback(err, filesModified, dirsModified, missingModified, fileTimestamps, dirTimestamps);
-      }, (fileName, changeTime) => {
-        callbackUndelayed(fileName, changeTime);
-      });
-    }
+      }
+    });
   }
 }
-
-
-
-ResplendencePlugin.prototype.apply = function(compiler) {
-
-  compiler.plugin('after-environment', () => {
-    compiler.watchFileSystem = new this.watcher(compiler.watchFileSystem, this.files, this.deletedFiles);
-  });
-
-  compiler.plugin('entry-option', () => {
-    this.processAll(this.files);
-  });
-
-  compiler.plugin('done', (stats) => {
-    if (this.once) {
-      while (this.files.length) {
-        const file = this.files.pop();
-        fs.unlinkSync(file);
-      }
-    }
-  })
-};
 
 export default ResplendencePlugin;
