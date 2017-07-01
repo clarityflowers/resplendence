@@ -3,6 +3,7 @@ import rx from './resplendent';
 const loader = require.resolve('./loader');
 
 export const config = ({src, ext}) => {
+  if (ext === undefined) ext = '.css'; 
   return {
     plugin: new Plugin({src, ext}),
     loader: {
