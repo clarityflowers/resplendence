@@ -1,0 +1,32 @@
+{
+  "name": "resplendence",
+  "version": "1.0.0-beta",
+  "description": "Styling in React made easy, beautiful, and performant.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "babel -d lib/ src/",
+    "prepublish": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cchanna/resplendence.git"
+  },
+  "author": "strangerelics",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cchanna/resplendence/issues"
+  },
+  "homepage": "https://github.com/cchanna/resplendence#readme",
+  "dependencies": {
+    "react": "^15.6.1",
+    "webpack": "^2.6.1",
+    "core-js": "^0.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1"
+  },
+  "babel": {
+    "presets": ["es2015"]
+  }
+}
