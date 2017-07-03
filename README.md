@@ -135,3 +135,38 @@ const Title = rx('h1')`
 
 Don't try to import a different auto-generated file, please.
 
+## Precedence and Nested Styles
+CSS precedence can be a bit of a nightmare. If you wrap a resplendent component inside another respledent component, you'll want to make sure that the outer component takes precedence. If both components are in the same file, then then components declared lower in the file take precedence, which should be exactly what you want. Otherwise, you can use following syntax to ask for precedence:
+
+```jsx
+import OtherResplendentComponent from './some-file.js';
+
+const Component = rx(OtherResplendentComponent)`--1
+  // styles go here
+`
+```
+
+Eventually there will be support for `--2` and `--3` and so on for further levels of precedence, but for now if you really need it, you can use scss mixins and extends to a similar purpose.
+
+## Refs
+If you need the ref to a resplendent component, just pass the `innerRef` prop. This will turn into a `ref` prop if you're styling a raw html component, and otherwise pass through as `innerRef` for everything else. This means that refs work just fine with nested resplendent components, and will work nicely with any other React components that ask for an `innerRef`.
+
+## Classnames
+Assuming your css preprocessor supports it, using classes can be a powerful tool for having your resplendent components handle multiple states. To this end, you can pass the `rx` property to any component, which will be used to set the className according to the rules of [classnames](https://github.com/JedWatson/classnames).
+
+```
+const Component = rx('div')`
+  background: black;
+  &.active {
+    background: red;
+  }
+`
+
+const App = (props) => {
+  const { on, charged } = props;
+  return (
+    <Component rx={{active: on && charged}}/>
+  )
+}
+```
+
