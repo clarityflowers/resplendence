@@ -104,8 +104,8 @@ html {
 `
 ```
 
-## SCSS, LESS, ect.
-You don't have to use CSS. Want to use SCSS? Just configure a different extension:
+## Preprocessors
+Want to use SCSS or LESS? Just configure a different extension:
 
 ```js
 const resplendenceConfig = resplendence.config({src: './src', ext: '.scss'});
