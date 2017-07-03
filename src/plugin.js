@@ -27,7 +27,7 @@ class ResplendencePlugin {
       let match = re.exec(file);
       const array = [];
       while (match !== null && match.length >= 2) {
-        array.push({isComponent: !!match[1], css: match[3]});
+        array.push({isComponent: !!match[1], level: parseInt(match[5]), css: match[6]});
         match = re.exec(file);
       }
       if (array.length) {
@@ -37,7 +37,11 @@ class ResplendencePlugin {
         {
           const section = array[i];
           if (section.isComponent) {
-            newFile += `.${makeClassName(pathName, count++)} {`;
+            newFile += `.${makeClassName(pathName, count++)}`;
+            if (section.level) {
+              newFile += '._rx1';
+            }
+            newFile += ' {'
           }
           newFile += section.css;
           if (section.isComponent) {
@@ -52,7 +56,7 @@ class ResplendencePlugin {
         }
         fs.writeFileSync(newName, newFile, 'utf8');
         if (files) {
-          files.push(newName);
+          // files.push(newName);
         }
       }
     }
@@ -87,12 +91,12 @@ class ResplendencePlugin {
     });
 
     compiler.plugin('done', (stats) => {
-      if (this.once) {
-        while (this.files.length) {
-          const file = this.files.pop();
-          fs.unlinkSync(file);
-        }
-      }
+      // if (this.once) {
+      //   while (this.files.length) {
+      //     const file = this.files.pop();
+      //     fs.unlinkSync(file);
+      //   }
+      // }
     });
   }
 }

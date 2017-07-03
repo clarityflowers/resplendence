@@ -13,10 +13,14 @@ function resplendenceLoader(source, sourceMap) {
   const importName = getImportName(source);
   if (importName) {
     const re = regex(importName);
-    const replacer = (match, p1, p2, p3) => {
+    const replacer = (match, p1, p2, p3, p4, p5, p6) => {
       matched = true;
       if (p1) {
-        return `${importName}(${p2}, "${makeClassName(this.resourcePath, count++)}")`;
+        let name = makeClassName(this.resourcePath, count++);
+        if (parseInt(p5)) {
+          name += ' _rx1';
+        }
+        return `${importName}(${p2}, "${name}")`;
       }
       return '';
     }
