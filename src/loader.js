@@ -15,15 +15,15 @@ function resplendenceLoader(source, sourceMap) {
     const re = regex(importName);
     const replacer = (match, p1, p2, p3, p4, p5, p6) => {
       matched = true;
+      const newLines = p6.replace(/[^\n]/g, "");
       if (p1) {
         let name = makeClassName(this.resourcePath, count++);
         if (parseInt(p5)) {
           name += ' _rx1';
         }
-        const newLines = p6.replace(/[^\n]/g, "");
         return `${importName}(${p2}, "${name}");${newLines}`;
       }
-      return '';
+      return newLines;
     }
     result = source.replace(re, replacer);
     if (matched) {
