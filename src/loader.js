@@ -20,7 +20,8 @@ function resplendenceLoader(source, sourceMap) {
         if (parseInt(p5)) {
           name += ' _rx1';
         }
-        return `${importName}(${p2}, "${name}")`;
+        const newLines = p6.replace(/[^\n]/g, "");
+        return `${importName}(${p2}, "${name}");${newLines}`;
       }
       return '';
     }
