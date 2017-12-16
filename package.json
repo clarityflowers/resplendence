@@ -1,6 +1,6 @@
 {
   "name": "resplendence",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Styling in React made easy, beautiful, and performant.",
   "main": "lib/index.js",
   "scripts": {
