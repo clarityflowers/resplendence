@@ -62,3 +62,5 @@ node_modules/
 .vscode
 /index.js
 /config.js
+/plugin.js
+/loader.js
