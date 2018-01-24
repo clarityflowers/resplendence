@@ -17,7 +17,7 @@ function resplendenceLoader(source, _sourceMap) {
       matched = true;
       const newLines = p6.replace(/[^\n]/g, "");
       if (p1) {
-        let name = makeClassName(this.resourcePath, count++);
+        let name = makeClassName(this.resourcePath, count++, this.query.src);
         if (parseInt(p5)) {
           name += ' _rx1';
         }

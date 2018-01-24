@@ -37,7 +37,7 @@ class ResplendencePlugin {
         {
           const section = array[i];
           if (section.isComponent) {
-            newFile += `.${makeClassName(pathName, count++)}`;
+            newFile += `.${makeClassName(pathName, count++, this.src)}`;
             if (section.level) {
               newFile += '._rx1';
             }
@@ -52,8 +52,8 @@ class ResplendencePlugin {
         const newName = makeFileName(this.src, pathName, this.ext);
         // eslint-disable-next-line no-console
         console.log(`Generating ${newName}`);
-        if (!fs.existsSync(path.join(this.src, '.generated'))) {
-          fs.mkdirSync(path.join(this.src, '.generated'));
+        if (!fs.existsSync(path.join(this.src, '.rx'))) {
+          fs.mkdirSync(path.join(this.src, '.rx'));
         }
         fs.writeFileSync(newName, newFile, 'utf8');
         if (files) {
@@ -73,7 +73,7 @@ class ResplendencePlugin {
   }
 
   processAll(files) {
-    const generatedFolder = path.join(this.src, '.generated'); 
+    const generatedFolder = path.join(this.src, '.rx'); 
     if (fs.existsSync(generatedFolder)) {
       const fileList = [];
       this.walkSync(generatedFolder, file => fileList.push(file));

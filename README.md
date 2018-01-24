@@ -111,7 +111,7 @@ Want to use SCSS or LESS? Just configure a different extension:
 const resplendenceConfig = resplendence.config({src: './src', ext: '.scss'});
 ```
 
-If you keep in mind that generated files are all kept at the root level of a `.generated` folder in your configured `src` directory, you can even use imports.
+If you keep in mind that generated files are all kept at the root level of a `.rx` folder in your configured `src` directory, you can even use imports.
 
 ```jsx
 rx`
