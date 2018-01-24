@@ -1,9 +1,11 @@
 {
   "name": "resplendence",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Styling in React made easy, beautiful, and performant.",
   "main": "lib/index.js",
-  "files": ["lib/*"],
+  "files": [
+    "lib/*"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel -d lib/ src/",
