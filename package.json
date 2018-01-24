@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "Styling in React made easy, beautiful, and performant.",
   "main": "index.js",
+  "files": ["config.js", "plugin.js", "index.js"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
