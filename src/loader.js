@@ -6,7 +6,7 @@ import regex from './regex';
 
 
 
-function resplendenceLoader(source, sourceMap) {
+function resplendenceLoader(source, _sourceMap) {
   let count = 0;
   let matched = false;
   let result = source;

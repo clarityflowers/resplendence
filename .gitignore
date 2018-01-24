@@ -60,3 +60,5 @@ typings/
 lib/
 node_modules/
 .vscode
+/index.js
+/config.js

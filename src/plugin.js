@@ -50,6 +50,7 @@ class ResplendencePlugin {
           newFile += `\n`;
         }
         const newName = makeFileName(this.src, pathName, this.ext);
+        // eslint-disable-next-line no-console
         console.log(`Generating ${newName}`);
         if (!fs.existsSync(path.join(this.src, '.generated'))) {
           fs.mkdirSync(path.join(this.src, '.generated'));
@@ -90,7 +91,7 @@ class ResplendencePlugin {
       this.processAll(this.files);
     });
 
-    compiler.plugin('done', (stats) => {
+    compiler.plugin('done', (_stats) => {
       // if (this.once) {
       //   while (this.files.length) {
       //     const file = this.files.pop();
