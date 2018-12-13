@@ -12,12 +12,14 @@ Following in the footsteps of [Styled Components](https://github.com/styled-comp
 import React from "react";
 import rx from "resplendence";
 
+// Put raw css in your javascript...
 rx`
 html {
   background: linear-gradient(to right, #ff9966, #ff5e62);
 }
 `;
 
+// ... or let it generate a classname for you...
 const APP_CLASSNAME = rx()`
   display: flex;
   align-items: center;
@@ -25,6 +27,7 @@ const APP_CLASSNAME = rx()`
   height: 100vh;
 `;
 
+// ... or use styled components.
 const StyledComponentTitle = rx("h1")`
   color: white;
   font-size: 150px;
