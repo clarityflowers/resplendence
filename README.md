@@ -200,3 +200,7 @@ const Component = rx("div")`
 
 const App = ({ on, charged }) => <Component rx={{ active: on && charged }} />;
 ```
+
+## Syntax Highlighting
+
+There is a vs code extension for syntax highlighting available at https://marketplace.visualstudio.com/items?itemName=strangerelics.vscode-resplendence.
