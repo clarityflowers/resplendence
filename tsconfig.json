@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "strictNullChecks": true,
+    "allowJs": true
+  }
+}
