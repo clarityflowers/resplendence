@@ -24,8 +24,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "loader-utils": "^2.0.0",
-    "path": "^0.12.7",
-    "source-map": "^0.7.3"
+    "path": "^0.12.7"
   },
   "peerDependencies": {
     "webpack": "^4.0.0",
