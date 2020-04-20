@@ -11,14 +11,14 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/strangerelics/resplendence.git"
+    "url": "git+https://github.com/clarityflowers/resplendence.git"
   },
   "author": "strangerelics",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/strangerelics/resplendence/issues"
+    "url": "https://github.com/clarityflowers/resplendence/issues"
   },
-  "homepage": "https://github.com/strangerelics/resplendence#readme",
+  "homepage": "https://github.com/clarityflowers/resplendence#readme",
   "dependencies": {
     "classnames": "^2.2.6",
     "loader-utils": "^1.1.0"
