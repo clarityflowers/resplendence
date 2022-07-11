@@ -8,6 +8,7 @@
     "script-loader.js",
     "style-loader.js"
   ],
+  "types": "index.d.ts",
   "scripts": {
     "test": "jest"
   },
