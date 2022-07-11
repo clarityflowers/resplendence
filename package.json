@@ -6,7 +6,8 @@
   "files": [
     "lib/*",
     "script-loader.js",
-    "style-loader.js"
+    "style-loader.js",
+    "index.d.ts"
   ],
   "types": "index.d.ts",
   "scripts": {
