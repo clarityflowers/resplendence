@@ -47,7 +47,7 @@ export const Hello = ({children}) => {
 
 const SCRIPT_OUTPUT = `
 import React from 'react';
-import "/src/test?resplendence=true";import rx from 'resplendence';
+import "/src/[test]?resplendence=true";import rx from 'resplendence';
 
 /*
 body {
@@ -71,7 +71,7 @@ export const Component = ({children}) => {
 };
 `;
 
-const SCRIPT_OUTPUT_NO_COMPONENTS = `import "/src/test?resplendence=true";
+const SCRIPT_OUTPUT_NO_COMPONENTS = `import "/src/[test]?resplendence=true";
 import React from 'react';
 
 /*
@@ -96,13 +96,13 @@ export const Hello = ({children}) => {
  */
 function bindLoader(loader, expected) {
   return loader.bind({
-    query: { src: "/src" },
-    resourcePath: "/src/test",
+    getOptions: () => ({ src: "/src" }),
+    resourcePath: "/src/[test]",
     callback: (_error, output, map) => {
       expect(output).toEqual(expected);
     },
     sourceMap: true,
-    resourceQuery: "resplendence=true"
+    resourceQuery: "resplendence=true",
   });
 }
 
